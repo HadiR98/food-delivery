@@ -1,6 +1,7 @@
-import logoImg from '../assets/logo.jpg';
+import logoImg from "../assets/logo.jpg";
 
-export default function Header() {
+export default function Header({ cartData }) {
+  console.log(cartData);
   return (
     <header id="main-header">
       <div id="title">
@@ -8,7 +9,7 @@ export default function Header() {
         <h1>ReactFood</h1>
       </div>
       <nav>
-        <button>Cart (0)</button>
+        <button>Cart ({cartData.length})</button>
       </nav>
     </header>
   );
