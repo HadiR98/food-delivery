@@ -1,8 +1,11 @@
 import logoImg from "../assets/logo.jpg";
 import React, { useState } from "react";
-import CartModal from "./CartModal";
-export default function Header({ cartData }) {
+import CartModal from "./CartModal.jsx";
+import CheckoutModal from "./CheckoutModal.jsx";
+
+export default function Header({ cartData, setCartData }) {
   const [showCart, setShowCart] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const handleCartClick = () => {
     setShowCart(true);
@@ -10,11 +13,26 @@ export default function Header({ cartData }) {
 
   const handleCloseModal = () => {
     setShowCart(false);
+    setShowCheckout(false);
+  };
+  const handleOnClickCheckuot = () => {
+    setShowCart(false);
+    setShowCheckout(true);
   };
 
   return (
     <>
-      {showCart && <CartModal items={cartData} onClose={handleCloseModal} />}
+      {showCart && (
+        <CartModal
+          items={cartData}
+          setItems={setCartData}
+          onClose={handleCloseModal}
+          onChekout={handleOnClickCheckuot}
+        />
+      )}
+      {showCheckout && (
+        <CheckoutModal cartData={cartData} onClose={handleCloseModal} />
+      )}
       <header id="main-header">
         <div id="title">
           <img src={logoImg} alt="A restaurant" />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-export default function CartModal({ items, onClose }) {
+export default function CartModal({ items, setItems, onClose, onChekout }) {
   // پردازش اولیه برای تنظیم مقدار quantity
   const initializeCartItems = (cartItems) => {
     if (!cartItems || cartItems.length === 0) return [];
@@ -25,7 +25,7 @@ export default function CartModal({ items, onClose }) {
     }
   }, [items]);
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   // افزایش تعداد
   const increaseQuantity = (id) => {
@@ -34,6 +34,10 @@ export default function CartModal({ items, onClose }) {
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
+    setItems((prevItems) => [
+      ...prevItems,
+      items.find((item) => item.meal.id === id),
+    ]);
   };
 
   // کاهش تعداد
@@ -45,7 +49,18 @@ export default function CartModal({ items, onClose }) {
         )
         .filter((item) => item.quantity > 0)
     );
+    setItems((prevItems) => {
+      const index = prevItems.findIndex((item) => item.meal.id === id);
+      if (index !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(index, 1);
+        return updatedItems;
+      }
+      return prevItems;
+    });
   };
+
+  function handleOnClickCheckuot() {}
 
   // محاسبه مبلغ کل
   const totalAmount = cartItems.reduce(
@@ -100,7 +115,7 @@ export default function CartModal({ items, onClose }) {
             <button onClick={onClose}>Close</button>
             <button
               className="px-6 py-2 bg-[#facc15] hover:bg-[#f9b511] text-[#1d1a16] rounded-md transition "
-              onClick={() => alert("Proceeding to checkout...")}
+              onClick={onChekout}
             >
               Go to Checkout
             </button>

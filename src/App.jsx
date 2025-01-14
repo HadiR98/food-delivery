@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Header cartData={addToCart} />
+      <Header cartData={addToCart} setCartData={setAddToCart} />
       <Meals setCart={setAddToCart} />
     </>
   );
