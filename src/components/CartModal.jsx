@@ -60,8 +60,6 @@ export default function CartModal({ items, setItems, onClose, onChekout }) {
     });
   };
 
-  function handleOnClickCheckuot() {}
-
   // محاسبه مبلغ کل
   const totalAmount = cartItems.reduce(
     (total, item) => total + parseFloat(item.price) * item.quantity,
@@ -72,7 +70,7 @@ export default function CartModal({ items, setItems, onClose, onChekout }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <dialog
         open
-        className="flex flex-col bg-white p-6 rounded-md shadow-lg max-w-2xl w-full"
+        className="flex flex-col bg-[#ccc] p-6 rounded-md shadow-lg max-w-2xl w-full"
       >
         <h2 className="text-[#312c1d] text-2xl my-4 font-bold">Your Cart</h2>
         <ul>
@@ -113,12 +111,14 @@ export default function CartModal({ items, setItems, onClose, onChekout }) {
         <div className="cart-modal-actions">
           <div className="modal-actions">
             <button onClick={onClose}>Close</button>
-            <button
-              className="px-6 py-2 bg-[#facc15] hover:bg-[#f9b511] text-[#1d1a16] rounded-md transition "
-              onClick={onChekout}
-            >
-              Go to Checkout
-            </button>
+            {items.length > 0 && (
+              <button
+                className="px-6 py-2 bg-[#facc15] hover:bg-[#f9b511] text-[#1d1a16] rounded-md transition "
+                onClick={onChekout}
+              >
+                Go to Checkout
+              </button>
+            )}
           </div>
         </div>
       </dialog>

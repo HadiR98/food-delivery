@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import CartModal from "./CartModal.jsx";
 import CheckoutModal from "./CheckoutModal.jsx";
 
-export default function Header({ cartData, setCartData }) {
+export default function Header({ cartData, setCartData, resetCart }) {
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -20,6 +20,11 @@ export default function Header({ cartData, setCartData }) {
     setShowCheckout(true);
   };
 
+  const handleOnClickOkey = () => {
+    setShowCheckout(false);
+    resetCart();
+  };
+
   return (
     <>
       {showCart && (
@@ -31,7 +36,11 @@ export default function Header({ cartData, setCartData }) {
         />
       )}
       {showCheckout && (
-        <CheckoutModal cartData={cartData} onClose={handleCloseModal} />
+        <CheckoutModal
+          cartData={cartData}
+          onClose={handleCloseModal}
+          onResetCart={handleOnClickOkey}
+        />
       )}
       <header id="main-header">
         <div id="title">

@@ -5,9 +5,17 @@ import Meals from "./components/Meals.jsx";
 function App() {
   const [addToCart, setAddToCart] = useState([]);
 
+  function handleResetCart() {
+    setAddToCart([]);
+  }
+
   return (
     <>
-      <Header cartData={addToCart} setCartData={setAddToCart} />
+      <Header
+        cartData={addToCart}
+        setCartData={setAddToCart}
+        resetCart={handleResetCart}
+      />
       <Meals setCart={setAddToCart} />
     </>
   );
